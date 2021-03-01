@@ -10,7 +10,11 @@ module.exports = {
         rules: [{
             loader: 'babel-loader',
             test: /\.js$/,
-            exclude: /node_modules/
+            exclude: /node_modules/,
+            options: {
+                presets: ['env'],
+                plugins: ['transform-object-rest-spread']
+            }
         }, {
             test: /\.s?css$/,
             use: [
