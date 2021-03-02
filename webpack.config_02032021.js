@@ -12,8 +12,8 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/,
             options: {
-                presets: ['env', 'react'],
-                plugins: ['transform-object-rest-spread', 'transform-class-properties']
+                presets: ['env'],
+                plugins: ['transform-object-rest-spread']
             }
         }, {
             test: /\.s?css$/,
