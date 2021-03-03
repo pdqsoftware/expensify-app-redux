@@ -14,6 +14,9 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss'
 import './styles/base/app.css'
 
+import 'react-dates/initialize';  // Is this working?
+import 'react-dates/lib/css/_datepicker.css';  // Is this working?
+
 const store = configureStore()
 
 console.log(store.getState())
