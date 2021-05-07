@@ -1,0 +1,21 @@
+// Import the required functions to test
+// import { addExpense, removeExpense, editExpense } from '../../actions/expenses'
+// import { removeExpense } from '../../actions/remove';
+// const removeExpense = require('../../actions/remove');
+// removeExpense = require('../../actions/remove')
+
+// const removeExpense = ({ id } = {}) => ({
+//     type: 'REMOVE_EXPENSE',
+//     id
+// });
+
+
+import { addExpense, editExpense, removeExpense } from '../../actions/expenses'
+
+test('Setup the remove expense action object', () => {
+    const action = removeExpense({ id: 'abc123'});
+    expect(action).toEqual({
+        type: 'REMOVE_EXPENSE',
+        id: 'abc123'
+    })
+})

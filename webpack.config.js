@@ -11,10 +11,6 @@ module.exports = {
             loader: 'babel-loader',
             test: /\.js$/,
             exclude: /node_modules/,
-            options: {
-                presets: ['env', 'react'],
-                plugins: ['transform-object-rest-spread', 'transform-class-properties']
-            }
         }, {
             test: /\.s?css$/,
             use: [
@@ -24,7 +20,6 @@ module.exports = {
                 ]
         }]
    },
-    mode: "development",
     devtool: 'cheap-module-eval-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'public'),
