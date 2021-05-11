@@ -2,29 +2,7 @@ import moment from 'moment'
 // It uses a default export so any name here will do
 // But, the name must not be inside {} as it cannot be found inside the imported file!
 import selectExpenses from '../../selectors/expenses'  
-
-// Create some expenses that can be used by all the tests that follow
-const expenses = [{
-    id: '1',
-    description: 'Gum',
-    note: '',
-    amount: 195,
-    createdAt: 0    // A number for comparison in the sort function
-}, {
-    id: '2',
-    description: 'Rent',
-    note: '',
-    amount: 109500,
-    // createAt: -1000    // Before 1970
-    createdAt: moment(0).subtract(4, 'days').valueOf()  // 4 days before 1970 (as a number)
-}, {
-    id: '3',
-    description: 'Credit Card',
-    note: '',
-    amount: 4500,
-    // createAt: 1000     // After 1970
-    createdAt: moment(0).add(4, 'days').valueOf()  // 4 days after 1970 (as a number)
-}]
+import expenses from '../fixtures/expenses'
 
 // Filter by text => 'e'
 test('should filter by text value', () => {

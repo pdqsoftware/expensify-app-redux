@@ -1,32 +1,18 @@
 import moment from 'moment';
 import expensesReducer from '../../reducers/expenses';
+import expenses from '../fixtures/expenses';
 
-// Create some expenses that can be used by all the tests that follow
-const expenses = [{
-    id: '1',
-    description: 'Gum',
-    note: '',
-    amount: 195,
-    createdAt: 0    // A number for comparison in the sort function
-}, {
-    id: '2',
-    description: 'Rent',
-    note: '',
-    amount: 109500,
-    createdAt: moment(0).subtract(4, 'days').valueOf()  // 4 days before 1970 (as a number)
-}, {
-    id: '3',
-    description: 'Credit Card',
-    note: '',
-    amount: 4500,
-    createdAt: moment(0).add(4, 'days').valueOf()  // 4 days after 1970 (as a number)
-}]
+// Check default state set correctly
+test('should setup default reducer values', () => {
+    const result = expensesReducer(undefined, { type: '@@INIT' })
+    expect(result).toEqual([])
+})
 
 // REMOVE_EXPENSE
-test('should remove an expense from above list', () => {
+test('should remove an expense, by id, from the expenses array', () => {
     const action = {
         type: 'REMOVE_EXPENSE',
-        id: '2'
+        id: expenses[1].id
     }
     const result = expensesReducer(expenses, action)
     expect(result).toEqual([
@@ -35,11 +21,23 @@ test('should remove an expense from above list', () => {
     ])
 })
 
+test('should not remove a non-existent expense from the expenses array', () => {
+    const action = {
+        type: 'REMOVE_EXPENSE',
+        id: '999'
+    }
+    const result = expensesReducer(expenses, action)
+    expect(result).toEqual(
+        expenses
+    )    // I initially used [ ...expenses ], which also worked
+})
+
+
 // ADD_EXPENSE
-test('should add a new expense to the array', () => {
+test('should add a new expense to the expenses array', () => {
     const createdAt = moment(0).add(3, 'days').valueOf() 
     const newExpense = {
-        id: '4',
+        id: '100',
         description: 'Mobile phone',
         note: 'Monthly mobile bill',
         amount: 2799,
@@ -54,4 +52,28 @@ test('should add a new expense to the array', () => {
         ...expenses,
         newExpense
     ])
+})
+
+// EDIT_EXPENSE
+const createdAt = moment(0).subtract(10, 'days').valueOf()
+test('should amend values in existing expense', () => {
+    const amount = 220
+    const action = {
+        type: 'EDIT_EXPENSE',
+        id: expenses[0].id,
+        updates: { amount }
+    }
+    const result = expensesReducer(expenses, action)
+    expect(result[0].amount).toBe(amount)   // result is an array of expense objects
+})
+
+test('should not edit a non-existent expense', () => {
+    const amount = 220
+    const action = {
+        type: 'EDIT_EXPENSE',
+        id: '-1',
+        updates: { amount }
+    }
+    const result = expensesReducer(expenses, action)
+    expect(result).toEqual(expenses)    // result is the expenses array we put in as nothing should have changed
 })
